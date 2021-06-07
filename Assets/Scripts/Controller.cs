@@ -96,7 +96,7 @@ public class Controller : MonoBehaviour
             {
                 if(matriu[i,j] == 1)
                 {
-                    tiles[i].adjacency[i] = j;
+                    tiles[i].adjacency.Add(j);
                 }
                 
             }
