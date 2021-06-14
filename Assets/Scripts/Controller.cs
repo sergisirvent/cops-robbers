@@ -67,7 +67,7 @@ public class Controller : MonoBehaviour
         {
             for(int j = 0; j < Constants.NumTiles; j++)
             {
-
+                
                 if (j == i + Constants.TilesPerRow)//si es la de abajo 
                 {
                     matriu[i, j] = 1;
@@ -76,15 +76,16 @@ public class Controller : MonoBehaviour
                 {
                     matriu[i, j] = 1;
                 }
-                if (j == i+1 &&  j % Constants.TilesPerRow+1 != 0)//adyacente la de la derecha y que no sea la del borde derecho
+                if (j == i+1 &&  j % Constants.TilesPerRow != 0)//adyacente la de la derecha y que no sea la del borde izquierdo
                 {
                     matriu[i, j] = 1;
                 }
-                if(j== i-1 && j % Constants.TilesPerRow!=0)//adyacente de la izquierda  y que no sea la del borde izquierdo
+                if(j== i-1 && (j+1) % Constants.TilesPerRow !=0)//adyacente de la izquierda  y que no sea la del borde derecho
                 {
                     matriu[i, j] = 1;
                 }
                 
+               
             }
         }
 
@@ -241,12 +242,12 @@ public class Controller : MonoBehaviour
     public void FindSelectableTiles(bool cop)
     {
                  
-        int indexcurrentTile;        
+        int indexcurrentTile;//casilla en la que esta la ficha actualmente        
 
         if (cop==true)
-            indexcurrentTile = cops[clickedCop].GetComponent<CopMove>().currentTile;
+            indexcurrentTile = cops[clickedCop].GetComponent<CopMove>().currentTile;//casilla si es un policia
         else
-            indexcurrentTile = robber.GetComponent<RobberMove>().currentTile;
+            indexcurrentTile = robber.GetComponent<RobberMove>().currentTile;//casilla si es un ladron
 
         //La ponemos rosa porque acabamos de hacer un reset
         tiles[indexcurrentTile].current = true;
@@ -256,11 +257,33 @@ public class Controller : MonoBehaviour
 
         //TODO: Implementar BFS. Los nodos seleccionables los ponemos como selectable=true
         //Tendrás que cambiar este código por el BFS
+        /*
         for(int i = 0; i < Constants.NumTiles; i++)
         {
+            for(int )
             tiles[i].selectable = true;
         }
+        */
+        int indiceAdyacente;
+        int indiceAdyacente2;
 
+        for (int i = 0; i < tiles[indexcurrentTile].adjacency.Count; i++)
+        {
+            indiceAdyacente = tiles[indexcurrentTile].adjacency[i];//accedemos a las casillas de adyacency de la current
+            tiles[indiceAdyacente].selectable = true;//ponemos en true las que coincidan con el indice 
+
+            //ahora buscamos las casillas adyacentes a las casillas adyacentes de la current
+         
+            for (int j = 0; j < tiles[indiceAdyacente].adjacency.Count; j++)//recorremos las casillas adyacentes de
+                                                                            //cada casilla adyacente de la current
+            {
+                
+                indiceAdyacente2 = tiles[indiceAdyacente].adjacency[j];
+                tiles[indiceAdyacente2].selectable = true;//las ponemos en true
+
+            }
+            
+        }
 
     }
     
