@@ -252,18 +252,7 @@ public class Controller : MonoBehaviour
         //La ponemos rosa porque acabamos de hacer un reset
         tiles[indexcurrentTile].current = true;
 
-        //Cola para el BFS
-        Queue<Tile> nodes = new Queue<Tile>();
-
-        //TODO: Implementar BFS. Los nodos seleccionables los ponemos como selectable=true
-        //Tendrás que cambiar este código por el BFS
-        /*
-        for(int i = 0; i < Constants.NumTiles; i++)
-        {
-            for(int )
-            tiles[i].selectable = true;
-        }
-        */
+        
         int indiceAdyacente;
         int indiceAdyacente2;
 
